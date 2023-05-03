@@ -5,6 +5,9 @@ echo Script to clone trees for m52xq :D
 echo "Is your rom LineageOS based? (y or n)"
 read losornot
 
+echo "Enter your build command below"
+read buildcommand
+
 if [ "$losornot" = "n" ]; then
 echo "Please tell the name of your rom (used for bringup)"
 read romname
@@ -44,3 +47,15 @@ sed -i 's/lineage/$romname/g' lineage_m52xq.mk
 echo bringup done!
 fi
 
+echo starting build :D
+export USE_CCACHE=1
+source build/envsetup.sh
+
+if [ "$losornot" = "n" ]; 
+then
+lunch $romname_m52xq.mk
+else
+lunch lineage_m52xq.mk
+fi
+
+$buildcommand
