@@ -5,12 +5,12 @@ echo Script to clone trees for m52xq :D
 echo "Is your rom LineageOS based? (y or n)"
 read losornot
 
-echo "Enter your build command below"
-read buildcommand
-
 if [ "$losornot" = "n" ]; then
 echo "Please tell the name of your rom (used for bringup)"
 read romname
+
+echo "Enter your build command below"
+read buildcommand
 fi
 
 git clone https://github.com/paulowesll/android_device_samsung_m52xq device/samsung/m52xq 
@@ -54,8 +54,8 @@ source build/envsetup.sh
 if [ "$losornot" = "n" ]; 
 then
 lunch $romname_m52xq.mk
+$buildcommand
 else
 lunch lineage_m52xq.mk
+mka bacon -j$(nproc --all)
 fi
-
-$buildcommand
